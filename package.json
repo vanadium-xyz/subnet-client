@@ -2,6 +2,14 @@
   "name": "subnet-client",
   "version": "0.55.0",
   "description": "SDK for joining and interacting with subnets — EIP-191 accountability signing and Matrix communication",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanadium-xyz/subnet-client.git"
+  },
+  "homepage": "https://github.com/vanadium-xyz/subnet-client#readme",
+  "bugs": {
+    "url": "https://github.com/vanadium-xyz/subnet-client/issues"
+  },
   "main": "index.js",
   "exports": {
     ".": {
