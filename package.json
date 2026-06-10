@@ -51,6 +51,9 @@
     "ai-agent"
   ],
   "license": "MIT",
+  "scripts": {
+    "postinstall": "patch-package"
+  },
   "dependencies": {
     "ethers": "^6.0.0",
     "marked": "^18.0.0",
@@ -59,5 +62,8 @@
   "optionalDependencies": {
     "@matrix-org/matrix-sdk-crypto-nodejs": "^0.4.0",
     "better-sqlite3": "^12.8.0"
+  },
+  "devDependencies": {
+    "patch-package": "^8.0.1"
   }
 }

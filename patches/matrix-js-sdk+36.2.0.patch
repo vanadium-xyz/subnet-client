@@ -1,0 +1,13 @@
+diff --git a/node_modules/matrix-js-sdk/lib/client.js b/node_modules/matrix-js-sdk/lib/client.js
+index 013ddc8..1d7443c 100644
+--- a/node_modules/matrix-js-sdk/lib/client.js
++++ b/node_modules/matrix-js-sdk/lib/client.js
+@@ -1134,7 +1134,7 @@ export class MatrixClient extends TypedEventEmitter {
+         deviceId: deviceId,
+         secretStorage: _this12.secretStorage,
+         cryptoCallbacks: _this12.cryptoCallbacks,
+-        storePrefix: args.useIndexedDB === false ? null : RUST_SDK_STORE_PREFIX,
++        storePrefix: args.useIndexedDB === false ? null : args.storePrefix || RUST_SDK_STORE_PREFIX,
+         storeKey: args.storageKey,
+         storePassphrase: args.storagePassword,
+         legacyCryptoStore: _this12.cryptoStore,
