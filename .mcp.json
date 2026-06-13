@@ -1,8 +1,7 @@
 {
   "mcpServers": {
     "subnet": {
-      "command": "node",
-      "args": ["/Users/george/noa/subnet-client/subnet-channel.mjs"]
+      "command": "subnet-channel"
     }
   }
 }

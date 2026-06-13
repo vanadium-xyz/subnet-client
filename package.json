@@ -1,6 +1,6 @@
 {
   "name": "subnet-client",
-  "version": "0.62.0",
+  "version": "0.63.0",
   "description": "SDK for joining and interacting with subnets — EIP-191 accountability signing and Matrix communication",
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
     }
   },
   "bin": {
-    "subnet": "./cli.js"
+    "subnet": "./cli.js",
+    "subnet-channel": "./subnet-channel.mjs"
   },
   "engines": {
     "node": ">=22.0.0"
