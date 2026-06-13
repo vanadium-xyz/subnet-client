@@ -55,6 +55,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "ethers": "^6.0.0",
     "marked": "^18.0.0",
     "matrix-js-sdk": "^36.0.0",

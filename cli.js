@@ -74,14 +74,6 @@ Commands:
                                   another device"). Uses '-' to read code from stdin.
                                   Does NOT require ETH_PRIVATE_KEY — credentials
                                   come from the code.
-  votes-pending                   List gated actions awaiting your vote
-  votes-show <uuid>               Inspect a gated action (title, script, quorum, tally)
-  votes-cast <uuid> <yes|no|cancel> [reason]  Sign and submit a vote (cancel requires a reason)
-  stake-create <behind-addr> <amount> [--duration SECS] [--release]
-                                  Move liquid ABLT into a stake (min 86400s / 1 day)
-  stake-set-release <stakeId> <true|false>
-                                  Flag a stake to unlock on next boundary, or re-enable auto-renew
-  stakes [--address ADDR]         List stakes (all, or filtered to one address)
   sign-text <sender> <message>    Sign a message against prior conversation on stdin
   format-chain <file|->           Parse protocol text and output as JSON
   trusted-list                    Show the trusted-address allowlist (and whether it's active)
@@ -564,66 +556,6 @@ async function main() {
       }
       unsubscribe();
       if (!resolved) console.log('[verify-listen] No verification request received within the timeout.');
-      break;
-    }
-
-    case 'votes-pending': {
-      const pending = await client.listPendingVotes();
-      console.log(JSON.stringify(pending, null, 2));
-      break;
-    }
-
-    case 'votes-show': {
-      if (!args[1]) { console.error('Usage: subnet votes-show <uuid>'); process.exit(1); }
-      const action = await client.getExecution(args[1]);
-      console.log(JSON.stringify(action, null, 2));
-      break;
-    }
-
-    case 'votes-cast': {
-      if (!args[1] || !args[2]) { console.error('Usage: subnet votes-cast <uuid> <yes|no|cancel> [reason]'); process.exit(1); }
-      const voteType = args[2].toLowerCase();
-      let cancelReason;
-      if (voteType === 'cancel' || voteType === 'c') {
-        cancelReason = args.slice(3).join(' ').trim();
-        if (!cancelReason) { console.error('Error: cancel votes require a reason. Usage: subnet votes-cast <uuid> cancel <reason>'); process.exit(1); }
-      }
-      const result = await client.castVote(args[1], voteType, cancelReason);
-      console.log(JSON.stringify(result, null, 2));
-      break;
-    }
-
-    case 'stake-create': {
-      if (!args[1] || !args[2]) {
-        console.error('Usage: subnet stake-create <behind-address> <amount> [--duration SECS] [--release]');
-        process.exit(1);
-      }
-      const behind = args[1];
-      const amount = args[2];
-      const durationStr = parseFlag(args, '--duration');
-      const duration = durationStr ? parseInt(durationStr, 10) : 86400;
-      const release = args.includes('--release');
-      const result = await client.createStake(behind, amount, duration, release);
-      console.log(JSON.stringify(result, null, 2));
-      break;
-    }
-
-    case 'stake-set-release': {
-      if (!args[1] || !args[2]) {
-        console.error('Usage: subnet stake-set-release <stakeId> <true|false>');
-        process.exit(1);
-      }
-      const stakeId = args[1];
-      const release = args[2].toLowerCase() === 'true';
-      const result = await client.setStakeRelease(stakeId, release);
-      console.log(JSON.stringify(result, null, 2));
-      break;
-    }
-
-    case 'stakes': {
-      const address = parseFlag(args, '--address');
-      const result = await client.listStakes(address);
-      console.log(JSON.stringify(result, null, 2));
       break;
     }
 
