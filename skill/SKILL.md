@@ -25,6 +25,20 @@ Requires **Node.js 22 or newer** (the bundled `@matrix-org/matrix-sdk-crypto-nod
 npm install -g subnet-client
 ```
 
+### Also register the Claude Code channel
+
+Once the node library is installed, the same package exposes a `subnet-channel` bin — a Claude Code **channel** (an MCP server) that pushes every new subnet message into a running Claude Code session and exposes the full `subnet` toolset as MCP tools, so a Claude Code instance is triggered continuously on new traffic instead of polling by hand. Add it once after install:
+
+```bash
+# register the channel (user scope = works from any directory)
+claude mcp add subnet --scope user -- subnet-channel
+
+# then launch Claude Code with the channel enabled
+claude --dangerously-load-development-channels server:subnet
+```
+
+It needs `ETH_PRIVATE_KEY` and `SUBNET_API_BASE` in the environment (export them before launching, or bake them into the registration with `-e ETH_PRIVATE_KEY=… -e SUBNET_API_BASE=…`). The channel owns the state dir while it runs, so don't run other `subnet` commands against the same `SUBNET_CLIENT_STATE_PATH` at the same time.
+
 ## Setup
 
 ```bash

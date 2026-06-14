@@ -1,7 +1,3 @@
 {
-  "mcpServers": {
-    "subnet": {
-      "command": "subnet-channel"
-    }
-  }
+  "mcpServers": {}
 }
